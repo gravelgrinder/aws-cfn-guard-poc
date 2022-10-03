@@ -4,26 +4,27 @@ POC showing how to use cfn-guard to implement preventive compliance on your Clou
 ## AWS Organizations Tag Policies
 1. I pre-configured a similar Tagging Policy within AWS Organizations to validate for proper Environment tagging values aginst the following services, S3, EC2 Instances and EC2 Volumes. Review the tagging policie configurations.
 
-1. Lets change the tag value to "DEVELOPMENT" in the `02-CREATE-S3.yaml` CloudFormation template.  Save  your changes.
+2. Lets change the tag value to "DEVELOPMENT" in the `02-CREATE-S3.yaml` CloudFormation template.  Save  your changes.
 
-1. Now lets attempt to create a S3 Bucket from CloudFormation Stack with an invalid tag.
+3. Now lets attempt to create a S3 Bucket from CloudFormation Stack with an invalid tag.
 ```
 aws cloudformation create-stack --stack-name s3-example-invalid-tag --template-body file://02-CREATE-S3.yaml
 ```
-1. Verify the Stack was Rolled Back because of the tag policy not allowing that specific tag value for the "Environment" tag key.
+
+4. Verify the Stack was Rolled Back because of the tag policy not allowing that specific tag value for the "Environment" tag key.
 
 
 ## CloudFormation Guard Demo
-1. If you have an existing CloudFormation Template, you can run `cfn-guard rulegen` to help generate a baseline ruleset to work from.  You can then tweak the rules to your more specific needs.
+5. If you have an existing CloudFormation Template, you can run `cfn-guard rulegen` to help generate a baseline ruleset to work from.  You can then tweak the rules to your more specific needs.
 ```
 cfn-guard rulegen --output output.guard --template 02-CREATE-S3.yaml
 ```
-1. Test your template against the ruleset you just created. Then verify the output of the script is `0` (Successful).
+6. Test your template against the ruleset you just created. Then verify the output of the script is `0` (Successful).
 ```
 cfn-guard validate --data 02-CREATE-S3.yaml --rules output.guard
 echo $?
 ```
-1. Now change the Environment tag value in the 02-CREATE-S3.yaml script to the value of "TEST".  Run the validate step again and see the output.  You should see a similar failure as shows below.
+7. Now change the Environment tag value in the 02-CREATE-S3.yaml script to the value of "TEST".  Run the validate step again and see the output.  You should see a similar failure as shows below.
 ```
 lwdvin@a483e7078b3f aws-cfn-guard-poc % cfn-guard validate --data 02-CREATE-S3.yaml --rules output.guard
 Other
@@ -56,7 +57,7 @@ Resource = s3Bucket {
   }
 }
 ```
-1. We want our ruleset to be more specific on what values are allowed so now lets validate the CloudFormation tempate against a more refined ruleset that includes all the environment values (DEV, TEST, QA and PROD).  The CloudFormation template should now be valid.
+8. We want our ruleset to be more specific on what values are allowed so now lets validate the CloudFormation tempate against a more refined ruleset that includes all the environment values (DEV, TEST, QA and PROD).  The CloudFormation template should now be valid.
 ```
 cfn-guard validate --data 02-CREATE-S3.yaml --rules rules/example-policy.guard
 ```
@@ -83,7 +84,7 @@ cfn-guard test -r rules/example-policy.guard -t rules/example-policy-test.yaml
 rm output.guard
 ```
 
-1. Delete `s3-example-invalid-tag` CloudFormation Stack
+2. Delete `s3-example-invalid-tag` CloudFormation Stack
 ```
 aws cloudformation delete-stack --stack-name s3-example-invalid-tag
 ```
