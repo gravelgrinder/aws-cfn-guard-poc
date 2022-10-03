@@ -96,6 +96,7 @@ AWS Organizations - Tagging Policies & SCPs
 AWS CloudFormation Guard
 * [AWS CloudFormation Guard User Guide](https://docs.aws.amazon.com/cfn-guard/latest/ug/what-is-guard.html)
 * [AWS CloudFormation Workshop](https://catalog.workshops.aws/cfn101/en-US)
+* [GitHub: AWS CLoudFormation Guard 2.0](https://github.com/aws-cloudformation/cloudformation-guard/)
 
 
 ## Questions & Comments
