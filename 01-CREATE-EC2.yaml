@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create an EC2 instance and Volume without tags
+
+Resources:
+  Ec2Volume:
+    Type: AWS::EC2::Volume
+    Properties: 
+      Size: 8
+      Encrypted: false
+      AvailabilityZone: !GetAtt Ec2Instance.AvailabilityZone
+      Tags:
+        - Key: Environment
+          Value: DEV
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-026b57f3c383c2eec
+      InstanceType: t2.micro
+      SubnetId: subnet-069a69e50bd1ebb23
+      KeyName: DemoVPC_Key_Pair
+      SecurityGroupIds:
+        - "sg-0e8f52c78025885ee"
+      #BlockDeviceMappings: 
+      #- DeviceName: "/dev/sdm"
+      #  Ebs: 
+      #    VolumeType: "gp2"
+      #    DeleteOnTermination: "true"
+      #    VolumeSize: "8"
+      #- DeviceName: "/dev/xvda"
+      #  NoDevice: {}
+      Tags:
+        - Key: Environment
+          Value: DEV

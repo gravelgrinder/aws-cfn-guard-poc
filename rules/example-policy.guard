@@ -1,0 +1,16 @@
+#
+# Select from Resources section of the template all ApiGateway resources 
+# present in the template. 
+#
+let api_gws       = Resources.*[ Type == 'AWS::ApiGateway::RestApi' ]
+let s3_buckets    = Resources.* [ Type == 'AWS::S3::Bucket']
+let ec2_instances = Resources.* [ Type == 'AWS::EC2::Instance']
+let ec2_volumes   = Resources.* [ Type == 'AWS::EC2::Volume']
+
+
+rule check_s3_required_tagging_Environment when %s3_buckets !empty {
+    %s3_buckets {
+        Properties.Tags[*].Key == /Environment$/
+        Properties.Tags[*].Value == /DEV|TEST|QA|PROD/
+    }
+}

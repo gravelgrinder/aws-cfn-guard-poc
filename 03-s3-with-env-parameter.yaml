@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple S3 Bucket without encryption
+Parameters:
+  EnvironmentParameter:
+    Type: List<String>
+    Default: DEV
+    AllowedValues:
+      - DEV
+      - TEST
+      - QA
+      - PROD
+    Description: Enter the environment for this Stack (DEV, TEST, QA or PROD).
+Resources:
+  s3Bucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: Private
+      Tags: 
+        - Key: "Environment"
+          Value: 
+          Ref: EnvironmentParameter

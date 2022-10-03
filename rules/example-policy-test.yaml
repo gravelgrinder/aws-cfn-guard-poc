@@ -1,0 +1,101 @@
+---
+- input:
+    Resources: {}
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: SKIP
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: FAIL      
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Env",
+                    Value: "DEV"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: FAIL
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Environment",
+                    Value: "DEV"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: PASS
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Environment",
+                    Value: "TEST"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: PASS
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Environment",
+                    Value: "QA"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: PASS
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Environment",
+                    Value: "PROD"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: PASS
+- input:
+    Resources:
+      compliant: 
+        Type: AWS::S3::Bucket
+        Properties: 
+            Tags: [
+                {
+                    Key: "Environment",
+                    Value: "Unknown"
+                },
+                {
+                    Key: "Project",
+                    Value: "PROD"
+                }
+            ]
+  expectations:
+    rules:
+      check_s3_required_tagging_Environment: FAIL
