@@ -94,6 +94,7 @@ AWS Organizations - Tagging Policies & SCPs
 * [Implement AWS resource tagging strategy using AWS Tag Policies and Service Control Policies (SCPs)](https://aws.amazon.com/blogs/mt/implement-aws-resource-tagging-strategy-using-aws-tag-policies-and-service-control-policies-scps/)
 
 AWS CloudFormation Guard
+* [Introducing AWS CloudFormation Guard 2.0](https://aws.amazon.com/blogs/mt/introducing-aws-cloudformation-guard-2-0/)
 * [AWS CloudFormation Guard User Guide](https://docs.aws.amazon.com/cfn-guard/latest/ug/what-is-guard.html)
 * [AWS CloudFormation Workshop](https://catalog.workshops.aws/cfn101/en-US)
 * [GitHub: AWS CLoudFormation Guard 2.0](https://github.com/aws-cloudformation/cloudformation-guard/)
